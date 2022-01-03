@@ -4,6 +4,10 @@
 
     <data>
         <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
             name="viewState"
             type="com.example.orchid.viewstates.PlantItemViewState" />
 
@@ -12,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewState.onClick()}">
+        android:onClick="@{clickListener}">
 
         <ImageView
             android:id="@+id/image"

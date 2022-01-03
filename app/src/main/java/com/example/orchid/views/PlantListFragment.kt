@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.orchid.R
-import com.example.orchid.common.jsonToClass
-import com.example.orchid.data.PlantData
 import com.example.orchid.databinding.FragmentPlantListBinding
 import com.example.orchid.viewmodels.PlantListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,17 +33,10 @@ class PlantListFragment : Fragment() {
         viewModel.data.observe(this, {
             viewModel.adapter.submitList(it)
         })
-
-        viewModel.navigator = (activity as? Navigator)
     }
 
     override fun onStop() {
         super.onStop()
         viewModel.data.removeObservers(this)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = PlantListFragment()
     }
 }

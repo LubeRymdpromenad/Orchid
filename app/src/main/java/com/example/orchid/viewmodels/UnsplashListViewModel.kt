@@ -2,6 +2,7 @@ package com.example.orchid.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -20,6 +21,7 @@ const val TAG = "UnsplashListViewModel"
 
 @HiltViewModel
 class UnsplashListViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val unsplashDatastore: UnsplashDatastore,
     private val unsplashItemViewStateMapper: Mapper<List<UnsplashData>, List<UnsplashItemViewState>>) : ViewModel() {
 
@@ -27,8 +29,16 @@ class UnsplashListViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
     var adapter: UnsplashAdapter = UnsplashAdapter()
 
+    val plantName: String? = savedStateHandle.get<String>(PLANT_NAME_SAVED_STATE_KEY)
+
     var data: LiveData<PagedList<UnsplashItemViewState>> = MutableLiveData()
         private set
+
+    init {
+        plantName?.let {
+            query = it
+        }
+    }
 
     var query: String? = null
         set(value) {
@@ -51,5 +61,9 @@ class UnsplashListViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
+    }
+
+    companion object {
+        private const val PLANT_NAME_SAVED_STATE_KEY = "plantName"
     }
 }

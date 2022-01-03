@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/orchid_navigation">
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/orchid_navigation"
+    app:startDestination="@id/plantList">
+
+    <fragment
+        android:id="@+id/plantList"
+        android:name="com.example.orchid.views.PlantListFragment"
+        android:label="Plant List"
+        tools:layout="@layout/fragment_plant_list">
+
+        <action
+            android:id="@+id/action_plantList_to_plantDetail"
+            app:destination="@id/plantDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantDetail"
+        android:name="com.example.orchid.views.PlantDetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_plant_detail">
+
+        <action
+            android:id="@+id/action_plantDetail_to_unsplashList"
+            app:destination="@id/unsplashList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <argument
+            android:name="plantData"
+            app:argType="com.example.orchid.data.PlantData" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/unsplashList"
+        android:name="com.example.orchid.views.UnsplashListFragment"
+        android:label="Unsplash List"
+        tools:layout="@layout/fragment_unsplash_list">
+
+        <argument
+            android:name="plantName"
+            app:argType="string" />
+
+    </fragment>
 
 </navigation>
